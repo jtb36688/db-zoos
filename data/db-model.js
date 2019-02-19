@@ -6,7 +6,7 @@ module.exports = {
     add,
     get,
     getById,
-    delete,
+    remove,
     modify
 }
 
@@ -22,7 +22,7 @@ function getById(table, id) {
     return db(`${table}`).where({ id: id })
 }
 
-function delete(table, id) {
+function remove(table, id) {
     return db(`${table}`).where({ id: id }).del()
 }
 
