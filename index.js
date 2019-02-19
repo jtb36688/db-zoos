@@ -30,3 +30,30 @@ server.post('/api/:table', (req, res) => {
   });
 })
 
+server.get('/api/:table', (req, res) => {
+  const { table } = req.params
+  db.get(table)
+  .then(found => {
+    res.status(200).json(found);
+  })
+  .catch(({ code, message }) => {
+    res.status(code).json({ message });
+  });
+});
+
+server.get('/api/:table/:id', (req, res) => {
+  const { table, id } = req.params
+  db.getById(table, id)
+  .then(found => {
+    if (found) {
+      res.status(200).json(found)
+    } else {
+      res.status(404).json({
+        error: 'Unable to find any entries matching ID'
+      })
+    }
+  })
+  .catch(({ code, message }) => {
+    res.status(code).json({ message });
+  });
+})
