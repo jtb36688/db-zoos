@@ -26,6 +26,8 @@ function remove(table, id) {
     return db(`${table}`).where({ id: id }).del()
 }
 
-function modify(table, id, request) {
-    return db(`${table}`).where({ id: id }).update(request)
-}
+async function modify(table, id, request) {
+    const conditional = await db(`${table}`).where('id', Number(id)).update(request)
+    if (conditional) {
+    return getById(table, id)}
+    else {return null}}
